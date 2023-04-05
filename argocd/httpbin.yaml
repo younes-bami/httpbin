@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: httpbin
+  namespace: argocd
+spec:
+  destination:
+    namespace: httpbin
+    server: https://kubernetes.default.svc 
+  project: default 
+  source:
+    repoURL: https://github.com/younes-bami/httpbin.git
+    path: httpbin/kustomize/base/backend"
+    directory: 
+      recurse: true
+    #targetRevision: minikube
+  syncPolicy: 
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
