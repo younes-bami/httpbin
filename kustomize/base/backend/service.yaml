@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     app: backend
+    app.kubernetes.io/instance: httpbin
   name: backend
   namespace: httpbin
 spec:
