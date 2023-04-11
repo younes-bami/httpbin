@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-v1
+  namespace: httpbin
 spec:
   replicas: 1
   selector:
@@ -23,6 +24,7 @@ spec:
         matchLabels:
           app: backend
           version: v1
+      strategy: {}
       containers:
       - env:
         - name: APP_BACKEND
