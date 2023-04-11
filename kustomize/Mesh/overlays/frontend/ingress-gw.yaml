@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: frontend-gateway
+  namespace: httpbin
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - 'fe.localhost'
+    port:
+      name: http
+      number: 8080
+      protocol: HTTP

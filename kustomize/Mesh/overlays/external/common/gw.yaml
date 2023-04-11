@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: httpbin-egressgateway
+  namespace: httpbin
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+  - name: httpbin
+    port:
+      number: 80
+      name: https-port-for-tls-origination-httpbin
+      protocol: HTTPS
+    hosts:
+    - ec2-34-251-198-112.eu-west-1.compute.amazonaws.com
+    tls:
+      mode: ISTIO_MUTUAL
+  - name: httpbin-9000
+    port:
+      number: 9000
+      name: http-port-for-httpbin-9000
+      protocol: HTTP
+    hosts:
+    - ec2-34-251-198-112.eu-west-1.compute.amazonaws.com

@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: httpbin
+  labels: 
+    app: backend
+    app.kubernetes.io/instance: httpbin
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      version: v1
+  template:
+    metadata:
+      metadata:
+      labels:
+        app: frontend
+        version: v1
+    spec:
+      selector:
+        matchLabels:
+          app: frontend
+          version: v1
+      containers:
+      - env:
+        - name: BACKEND_URL
+          value: http://backend:8080
+        image: quay.io/voravitl/frontend-js:v1
+        imagePullPolicy: Always
+        name: frontend
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 120Mi
+          requests:
+            cpu: 50m
+            memory: 40Mi

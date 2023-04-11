@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: backend
+        version: v2
+    spec:
+      selector:
+        matchLabels:
+          app: backend
+          version: v2
+      containers:
+      - env:
+        - name: APP_BACKEND
+          value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com:9000/status/200
+        - name: APP_VERSION
+          value: v2
+        - name: quarkus.log.console.color
+          value: "false"
+        image: quay.io/voravitl/backend-native:v1
+        imagePullPolicy: Always
+        name: backend
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 120Mi
+          requests:
+            cpu: 50m
+            memory: 40Mi

@@ -1,0 +1,50 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: direct-httpbin-9000-through-egress-gateway
+  namespace: httpbin
+spec:
+  hosts:
+  - ec2-34-251-198-112.eu-west-1.compute.amazonaws.com
+  gateways:
+  - httpbin-egressgateway
+  - mesh
+  http:
+  - match:
+    - gateways:
+      - mesh
+      port: 9000
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: httpbin-9000
+        port:
+          number: 9000
+      weight: 100
+  - match:
+    - gateways:
+      - httpbin-egressgateway
+      port: 9000
+    route:
+    - destination:
+        host: ec2-34-251-198-112.eu-west-1.compute.amazonaws.com
+        port:
+          number: 9000
+      weight: 100
+---
+#apiVersion: networking.istio.io/v1alpha3
+#kind: DestinationRule
+#metadata:
+#  name: originate-tls-for-edition-httpbin
+#spec:
+#  host: ec2-34-251-198-112.eu-west-1.compute.amazonaws.com
+#  trafficPolicy:
+#    loadBalancer:
+#      simple: ROUND_ROBIN
+#    portLevelSettings:
+#    - port:
+#        number: 443
+#      tls:
+#        mode: SIMPLE # initiates HTTPS for connections to ec2 
+#        credentialName: client-credential
+        #caCertificates:  /etc/istio/egressgateway-certs/ca.crt

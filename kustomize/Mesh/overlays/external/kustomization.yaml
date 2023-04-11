@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # Common
+  - common/gw.yaml
+  - common/dr.yaml
+  # httpbin-80/
+  - httpbin-80/se-httpbin.yaml
+  - httpbin-80/vs-httpbin.yaml
+  # httpbin-9000/
+  - httpbin-9000/se-httpbin-9000.yaml
+  - httpbin-9000/vs-httpbin-9000.yaml

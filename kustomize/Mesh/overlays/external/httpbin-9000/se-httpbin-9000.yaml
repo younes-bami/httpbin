@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: httpbin-9000
+  namespace: httpbin
+spec:
+  hosts:
+  - ec2-34-251-198-112.eu-west-1.compute.amazonaws.com
+  ports:
+  - number: 9000
+    name: http-9000
+    protocol: HTTP
+  resolution: DNS
