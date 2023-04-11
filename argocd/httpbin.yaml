@@ -10,10 +10,10 @@ spec:
   project: default 
   source:
     repoURL: https://github.com/younes-bami/httpbin.git
-    path: kustomize/base/backend
+    path: kustomize
     directory: 
       recurse: true
-    #targetRevision: minikube
+    targetRevision: minikube
   syncPolicy: 
     automated:
       prune: true
