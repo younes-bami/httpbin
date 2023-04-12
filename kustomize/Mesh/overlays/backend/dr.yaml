@@ -8,9 +8,7 @@ spec:
   subsets:
   - name: stable
     labels:
-      app: backend
       version: v1
   - name: canary
     labels:
-      app: backend
       version: v2
