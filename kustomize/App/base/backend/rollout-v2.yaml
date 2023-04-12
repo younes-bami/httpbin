@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-httpbin
+  namespace: httpbin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: backend
+        version: v2
+    spec:
+      containers:
+      - env:
+        - name: APP_BACKEND
+          value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com:9000/status/200
+        - name: APP_VERSION
+          value: v2
+        - name: quarkus.log.console.color
+          value: "false"
+        image: quay.io/voravitl/backend-native:v1
+        imagePullPolicy: Always
+        name: backend
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 120Mi
+          requests:
+            cpu: 50m
+            memory: 40Mi
+  strategy:
+    canary:
+      trafficRouting:
+        istio:
+          virtualService:
+            name: backend-vs        # required
+            #routes:
+            #- primary                 # optional if there is a single route in VirtualService, required otherwise
+          destinationRule:
+            name: backend-destination   # required
+            canarySubsetName: canary  # required
+            stableSubsetName: stable  # required
+      steps:
+      - setWeight: 0
+      - pause:
+          duration: 1m
+      - setWeight: 100
+      - pause: {}
