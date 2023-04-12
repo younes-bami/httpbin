@@ -50,6 +50,6 @@ spec:
             stableSubsetName: stable  # required
       steps:
       - setWeight: 100
-      - pause:
-          duration: 1m
-      - setWeight: 0
+      #- pause:
+      #    duration: 1m
+      #- setWeight: 0
