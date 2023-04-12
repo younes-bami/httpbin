@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - dr.yaml
   - vs.yaml
-  - rollout.yaml
+  #- rollout.yaml
