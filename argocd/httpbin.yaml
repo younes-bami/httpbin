@@ -9,12 +9,12 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kustomize
+    path: /kustomize
     repoURL: https://github.com/younes-bami/httpbin.git
     targetRevision: master
   syncPolicy:
     automated:
-      prune: false
+      prune: true
       selfHeal: true
     syncOptions:
     - CreateNamespace=false
