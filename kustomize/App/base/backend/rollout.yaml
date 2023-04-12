@@ -41,7 +41,7 @@ spec:
       trafficRouting:
         istio:
           virtualService:
-            name: httpbin        # required
+            name: backend-vs        # required
             #routes:
             #- primary                 # optional if there is a single route in VirtualService, required otherwise
           destinationRule:
