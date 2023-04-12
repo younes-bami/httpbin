@@ -16,10 +16,6 @@ spec:
         app: backend
         version: v2
     spec:
-      selector:
-        matchLabels:
-          app: backend
-          version: v2
       containers:
       - env:
         - name: APP_BACKEND
