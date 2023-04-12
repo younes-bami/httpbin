@@ -21,10 +21,6 @@ spec:
         app: frontend
         version: v1
     spec:
-      selector:
-        matchLabels:
-          app: frontend
-          version: v1
       containers:
       - env:
         - name: BACKEND_URL
