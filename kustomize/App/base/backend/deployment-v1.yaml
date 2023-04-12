@@ -20,11 +20,11 @@ spec:
         app: backend
         version: v1
     spec:
-      selector:
-        matchLabels:
-          app: backend
-          version: v1
-      strategy: {}
+      #selector:
+      #  matchLabels:
+      #    app: backend
+      #    version: v1
+      #strategy: {}
       containers:
       - env:
         - name: APP_BACKEND
