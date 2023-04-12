@@ -4,3 +4,4 @@ resources:
   - deployment-v1.yaml
   #- deployment-v2.yaml
   - service.yaml
+  - rollout.yaml
