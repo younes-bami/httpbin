@@ -1,7 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollout-example
+  name: rollout-httpbin
+  namespace: httpbin
 spec:
   replicas: 1
   selector:
@@ -44,7 +45,7 @@ spec:
             #routes:
             #- primary                 # optional if there is a single route in VirtualService, required otherwise
           destinationRule:
-            name: rollout-destrule    # required
+            name: backend-destination   # required
             canarySubsetName: canary  # required
             stableSubsetName: stable  # required
       steps:
