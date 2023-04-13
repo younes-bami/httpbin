@@ -16,17 +16,16 @@ spec:
         version: v1
     spec:
       containers:
-      #- env:
-      #  - name: APP_BACKEND
-      #    value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com/status/200
-      #  - name: APP_VERSION
-      #    value: v1
-      #  - name: quarkus.log.console.color
-      #    value: "false"
-
-      - name: backend
-        image: quay.io/voravitl/backend-native:v1
+      - env:
+        - name: APP_BACKEND
+          value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com/status/200
+        - name: APP_VERSION
+          value: v1
+        - name: quarkus.log.console.color
+          value: "false"
+        image: younesic/httpbin:v1
         imagePullPolicy: Always
+        name: backend
         ports:
         - containerPort: 8080
           protocol: TCP
