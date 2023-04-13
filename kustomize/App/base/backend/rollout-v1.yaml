@@ -23,7 +23,7 @@ spec:
           value: v1
         - name: quarkus.log.console.color
           value: "false"
-        image: younesic/httpbin:v1
+        image: younesic/httpbin:v2
         imagePullPolicy: Always
         name: backend
         ports:
