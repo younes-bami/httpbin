@@ -24,7 +24,7 @@ spec:
       #  - name: quarkus.log.console.color
       #    value: "false"
       #  image: quay.io/voravitl/backend-native:v1
-        image: younesic/httpbin:v2
+      - image: younesic/httpbin:v2  
         imagePullPolicy: Always
         name: backend
         ports:
