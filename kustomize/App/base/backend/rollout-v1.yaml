@@ -24,9 +24,9 @@ spec:
       #  - name: quarkus.log.console.color
       #    value: "false"
 
-      - image: quay.io/voravitl/backend-native:v1
+      - name: backend
+        image: quay.io/voravitl/backend-native:v1
         imagePullPolicy: Always
-        name: backend
         ports:
         - containerPort: 8080
           protocol: TCP
