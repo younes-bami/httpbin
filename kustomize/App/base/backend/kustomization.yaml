@@ -5,4 +5,4 @@ resources:
   #- deployment-v2.yaml
   - service.yaml
   - rollout-v1.yaml
-  - rollout-v2.yaml
+  #- rollout-v2.yaml

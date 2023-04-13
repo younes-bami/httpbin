@@ -42,14 +42,17 @@ spec:
         istio:
           virtualService:
             name: backend-vs        # required
-            #routes:
-            #- primary                 # optional if there is a single route in VirtualService, required otherwise
+            routes:
+            - primary                 # optional if there is a single route in VirtualService, required otherwise
           destinationRule:
             name: backend-destination   # required
             canarySubsetName: canary  # required
             stableSubsetName: stable  # required
       steps:
+      - setWeight: 20
+      - pause:
+          duration: 1m
+      - setWeight: 50
+      - pause:
+          duration: 1m
       - setWeight: 100
-      #- pause:
-      #    duration: 1m
-      #- setWeight: 0

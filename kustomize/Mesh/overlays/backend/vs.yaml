@@ -7,7 +7,8 @@ spec:
   hosts:
   - 'backend'
   http:
-  - route:
+  - name: primary
+    route:
     - destination:
         host: backend
         subset: stable
@@ -15,7 +16,7 @@ spec:
     - destination:
         host: backend
         subset: canary
-      weight: 100
+      weight: 0
  
 
 

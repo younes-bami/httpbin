@@ -16,3 +16,10 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+  ignoreDifferences:
+  - group: networking.istio.io
+    kind: VirtualService
+    jsonPointers:
+    - /spec/http/0
