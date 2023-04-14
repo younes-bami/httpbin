@@ -1,58 +1,54 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollout-v1-httpbin
-  namespace: httpbin
+  name: httpbin-rollout
 spec:
-  replicas: 5
+  replicas: 1
+  strategy:
+    canary:
+      steps:
+      - setWeight: 5
+      - pause: 
+          duration: 60
+      - setWeight: 10
+      - pause:
+          duration: 60
+      - setWeight: 25
+      - pause: 
+          duration: 60
+      - setWeight: 50
+      - pause:
+          duration: 60
+      - setWeight: 100
+      - pause: {}
+      trafficRouting:
+        istio:
+          destinationRule:
+            canarySubsetName: canary
+            name: backend-destination
+            stableSubsetName: stable
+          virtualService:
+            name: backend-vs
+            routes:
+            - primary
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: backend
-      version: v1
   template:
     metadata:
       labels:
         app: backend
-        version: v1
+        istio-injection: enabled
     spec:
       containers:
-      #- env:
-      #  - name: APP_BACKEND
-      #    value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com/status/200
-      #  - name: APP_VERSION
-      #    value: v1
-      #  - name: quarkus.log.console.color
-      #    value: "false"
-      - image: younesic/httpbin:v1
-        imagePullPolicy: Always
-        name: backend
+      - name: backend
+        image: younesic/httpbin:v1
         ports:
-        - containerPort: 8080
+        - name: http
+          containerPort: 8080
           protocol: TCP
         resources:
-          limits:
-            cpu: 200m
-            memory: 120Mi
           requests:
-            cpu: 50m
-            memory: 40Mi
-  strategy:
-    canary:
-      trafficRouting:
-        istio:
-          virtualService:
-            name: backend-vs        # required
-            routes:
-            - primary                 # optional if there is a single route in VirtualService, required otherwise
-          destinationRule:
-            name: backend-destination   # required
-            canarySubsetName: canary  # required
-            stableSubsetName: stable  # required
-      steps:
-      - setWeight: 20
-      - pause:
-          duration: 1m
-      - setWeight: 60
-      - pause:
-          duration: 1m
-      - setWeight: 100
+            memory: 32Mi
+            cpu: 5m
