@@ -44,12 +44,12 @@ spec:
       containers:
       - env:
         - name: APP_BACKEND
-          value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com/status/200
+          value: http://ec2-34-251-198-112.eu-west-1.compute.amazonaws.com:9000/status/200
         - name: APP_VERSION
           value: v2
         - name: quarkus.log.console.color
           value: "false"
-        image: quay.io/voravitl/backend-native:v1
+        image: quay.io/voravitl/backend-native:latest
         name: backend
         imagePullPolicy: Always
         ports:
